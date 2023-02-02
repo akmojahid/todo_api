@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const app = express();
 //MongoDB and Mongoose
 
-const uri =
-  "mongodb+srv://akmojahid:017766512@cluster0.mongodb.net/new?retryWrites=true&w=majority";
-
+require("dotenv").config(); 
+const uri = process.env.DB; 
+      
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
