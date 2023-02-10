@@ -1,53 +1,27 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const db = require("./controller/db/db");
+const route = require("./controller/route/route");
 const app = express();
-//MongoDB and Mongoose
 
-require("dotenv").config(); 
-const uri = process.env.DB; 
-      
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
+db.connectDB();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+  res.json({ msg: "Root Route", Status: "OK" });
 });
+app.post("/todo/create", route.createTodo);
 
-const connection = mongoose.connection;
+app.get("/todo/all", route.getAll);
+app.get("/todo", route.todo);
+app.get("/todo/:id", route.getOne);
 
-connection.once("open", () => {
-  console.log("MongoDB Atlas connection established successfully");
-});
+app.patch("/todo/:id", route.updateOne);
 
-connection.on("error", (error) => {
-  console.error("MongoDB Atlas connection error: ", error);
-});
+app.delete("/todo/:id", route.delete);
 
-const schema = mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-});
-
-const User = mongoose.model("User", schema);
-
-//Routes GET, POST
-app.post("/register", (req, res) => {
-  const user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  });
-
-  user.save((error) => {
-    if (error) {
-      res.status(500).send(error);
-    } else {
-      res.send("User registered successfully");
-    }
-  });
-});
-
-//lister
-app.listen(3000, () => {
-  console.log("Express app listening on port 3000");
+require("dotenv").config();
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log("Server is running on %d", PORT);
 });
