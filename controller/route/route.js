@@ -1,4 +1,4 @@
-const e = require("express");
+const express = require("express");
 const db = require("../db/db");
 
 exports.getAll = async (req, res) => {
