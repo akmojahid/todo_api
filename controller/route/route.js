@@ -36,7 +36,7 @@ exports.delete = async (req, res) => {
     await db.Todo.deleteOne({ _id: id });
     res.status(200).json({ succes: true, operation: "delete" });
   } catch (error) {
-    res.status(500).send("somthing wrong");
+    res.status(500).send("somthing wrong!");
     console.log(error);
     process.exit(1);
   }
