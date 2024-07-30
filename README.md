@@ -1,5 +1,5 @@
 # Todo Apps API
-** Language used **
+**Technology used**
 - Node.js
 - Express.js
 - mongoDB
