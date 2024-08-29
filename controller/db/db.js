@@ -19,6 +19,7 @@ exports.connectDB = () => {
   }
 };
 
+//user data scheme
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -34,6 +35,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+//todo data scheme
 const TodoSchema = new mongoose.Schema({
   name: {
     type: String,
