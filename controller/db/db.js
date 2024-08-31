@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 require("dotenv").config();
-const DB_URI = process.env.DB_URI;
+let local_db_url = ""
+const DB_URI = process.env.DB_URI || local_db_url;
 
 /*
 - Coonect Database
